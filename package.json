@@ -1,0 +1,17 @@
+{
+  "name": "basecamptagger",
+  "version": "1.0.0",
+  "description": "A github tagging alternative for Basecamp",
+  "main": "popup.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "JayWood",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-watch": "^4.3.11"
+  }
+}

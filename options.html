@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Basecamp Tagger Extension</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body class="options">
+<div class="wrapper">
+	<h1>Tagger Extension Options</h1>
+	<p class="status" style="display: none;"></p>
+	<form class="tags">
+		<table class="tagSettings">
+			<thead>
+			<tr>
+				<th>Label</th>
+				<th>Tag</th>
+				<th>Background Color</th>
+				<th>Text Color</th>
+			</tr>
+			</thead>
+
+			<tbody>
+			<tr class="settingsFields">
+				<td class="tag-label"><input type="text" name="jwBCTagManager[1][tagLabel]" class="label tagLabel" ><a href="#" class="remove">[ Delete ]</a></td>
+				<td class="tag-string"><input type="text" name="jwBCTagManager[1][tag]" class="tag" > </td>
+				<td class="spectrum-element bg-color"><input type="color" name="jwBCTagManager[1][pillColor]" class="pillColor"></td>
+				<td class="spectrum-element text-color"><input type="color" name="jwBCTagManager[1][textColor]" class="textColor"></td>
+			</tr>
+			</tbody>
+		</table>
+
+		<p class="new">
+			<input type="button" value="Add New Tag" class="btn" id="addNew"/>
+			<input type="submit" value="Save Settings" class="btn" id="submit">
+		</p>
+	</form>
+
+</div>
+
+<footer>
+	<script src="vendor/jquery-3.1.1.min.js" type="text/javascript"></script>
+	<script src="vendor/jquery.serialization-libs.js" type="text/javascript"></script>
+	<script src="js/options.js" type="text/javascript"></script>
+</footer>
+
+</body>
+</html>
