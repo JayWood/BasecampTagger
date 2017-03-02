@@ -1,4 +1,4 @@
-# BasecampTagger
+# WDS Basecamp Tagger
 
 **Contributors:** [JayWood](http://github.com/JayWood)
 
