@@ -27,10 +27,7 @@
 	"options_page": "options.html",
 
 	"permissions": [
-		"https://*/*",
-		"cookies",
-		"webRequest",
-		"webRequestBlocking",
+		"https://basecamp.com/*",
 		"storage"
 	]
 }
