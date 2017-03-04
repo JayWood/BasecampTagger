@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"version": "1.0",
 
-	"name": "Basecamp Tagger",
+	"name": "WDS Basecamp Tagger",
 	"description": "A github style Tagging system for Basecamp",
 
 	"background": {
