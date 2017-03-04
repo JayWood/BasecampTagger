@@ -4,12 +4,14 @@
 
 	"name": "Basecamp Tagger",
 	"description": "A github style Tagging system for Basecamp",
-	// "default_locale": "en",
 
-	"browser_action": {
+	"background": {
+		"scripts": ["js/background.js"],
+		"persistent": true
+	},
+
+	"page_action": {
 		"default_icon": "icon.png"
-//		"default_popup": "popup.html",
-//		"default_title": "Basecamp Tagger"
 	},
 
 	"content_scripts": [
