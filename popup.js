@@ -1,3 +1,0 @@
-/**
- * Main Popup handler Javascript
- */
