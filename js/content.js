@@ -1,7 +1,9 @@
+/* globals chrome */
 window.jwBCTagManager = {};
 ( function( window, $, app ) {
 
 	app.config = {};
+	app.page = 'single'; // default to single
 
 	// Cache all the things
 	app.cache = function() {
@@ -18,16 +20,36 @@ window.jwBCTagManager = {};
 	};
 
 	app.bindEvents = function () {
-		$( 'ul.todos li.todo' ).each( app.updateElement );
+		app.determinePage();
+		$( 'li.todo' ).each( app.updateElement );
+	};
+
+	app.determinePage = function() {
+		if ( $( 'section.perma.has_tools').length ) {
+			app.page = 'single';
+		} else {
+			app.page = 'archive';
+		}
+
 	};
 
 	app.buildHTML = function ( obj ) {
-		return $('<span class="pill comments jw-bc-tag" style="background: ' + obj.pillColor + '; color: '+ obj.textColor +'">' + obj.tagLabel + '</span>' );
+
+		var classes = 'pill comments';
+		if ( 'single' === app.page ) {
+			// If we're on a single page, chances are the HTML/styles are different
+			classes = 'pill';
+		}
+
+		return $('<span class="'+ classes +' jw-bc-tag" style="background: ' + obj.pillColor + '; color: '+ obj.textColor +'">' + obj.tagLabel + '</span>' );
 	};
 
 	app.updateElement = function( index, e ) {
 		var curEl = $( e );
 		var anchorTag = curEl.find( '.content a' );
+		if ( 'single' === app.page ) {
+			anchorTag = curEl.find( 'span.content_for_perma' );
+		}
 
 		for ( var key in app.config ) {
 			var anchorText = anchorTag.text();
@@ -46,8 +68,10 @@ window.jwBCTagManager = {};
 			} ) );
 
 			if ( replaced ) {
-				curEl.find( '.content' ).after( app.buildHTML( obj ) );
-				// curEl.find( 'div' ).not( '.nubbin, .spacer' ).append( app.buildHTML( obj ) );
+				var contentItem = curEl.find( '.content' );
+				var htmlOutput = app.buildHTML( obj );
+
+				contentItem.after( htmlOutput );
 			}
 		}
 	};
