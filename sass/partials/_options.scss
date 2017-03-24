@@ -1,16 +1,17 @@
 body.options {
+
 	.wrapper{
-		width: 960px;
+		background-color: #eaeaea;
+		border-radius: 0;
 		margin: 0 auto;
-		background-color: #7fe6e0;
-		padding: 5px;
-		border-radius: 6px;
+		padding: 20px;
+		width: 960px;
 	}
 
 	.status{
+		background-color: rgba( 255, 255, 0, 0.5 );
 		color: green;
 		display: block;
-		background-color: rgba( 255, 255, 0, 0.5 );
 		padding: 5px;
 	}
 
@@ -18,24 +19,38 @@ body.options {
 		text-align: right;
 
 		.btn{
+
+			border-radius: 0;
+			color: #fff;
+			font-size: 1em;
 			margin: 0;
-			padding: 0 16px;
-			color: #FFF;
-			background-color: #21759b;
-			background-image: linear-gradient(to bottom, #2a95c5, #21759b);
-			border-color: #21759b;
-			border-bottom-color: #1e6a8d;
-			box-shadow: inset 0 1px 0 rgba(120,200,230,0.5);
+			padding: 6px 31px;
 			text-decoration: none;
-			text-shadow: 0 1px 0 rgba(0,0,0,0.1);
-			border-radius: 12px;
+			text-shadow: 1px 2px 0 rgba(0,0,0,0.8);
+
+			&.add-btn {
+				background-image: linear-gradient(to bottom, #49e691, #197543);
+    			border-bottom-color: #28a956;
+    			border-color: #28a956;
+				box-shadow: inset 0 1px 0 rgba(#197543,0.5);
+			}
+
+			&.save-btn {
+				background-color: #21759b;
+				background-image: linear-gradient(to bottom, #2a95c5, #21759b);
+				border-bottom-color: #1e6a8d;
+				border-color: #21759b;
+				box-shadow: inset 0 1px 0 rgba(120,200,230,0.5);
+			}
 		}
 	}
 
 	h1 {
 		margin-top: 0;
-		width: 100%;
 		text-align: center;
+		text-transform: uppercase;
+		width: 100%;
+    	font-size: 2.5em;
 	}
 
 	label{
@@ -47,31 +62,41 @@ body.options {
 		width: 100%;
 
 		th, td{
+			border: 1px groove #c7c7c7;
 			padding: 5px;
-			border: 1px solid #999999;
 		}
 
 		th{
-			text-align: left;
+			font-size: 1.25em;
+			text-align: center;
 		}
 
 		.label{
-			width: 60%;
 			display: inline-block;
+			height: 25px;
+			width: 80%;
 		}
 
 		.remove{
+			color: #ef2b2b;
 			display: inline-block;
-			padding: 5px;
+			float: right;
+			padding: 9px 5px;
 		}
 
 		.tag-string input{
-			width: 100%; // test
+			height: 25px;
+			width: 97.5%; // test
 		}
 
 		.spectrum-element{
 			text-align: center;
 		}
-	}
 
+		.pillColor,
+		.textColor {
+			height: 31px;
+			width: 50%;
+		}
+	}
 }
