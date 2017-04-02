@@ -1,5 +1,12 @@
+/* global chrome */
 window.jwBasecampTagger = {};
 ( function( window, $, app ) {
+
+	/**
+	 * The default storage object structure.
+	 * @type {{jwBCTagManager: {}, jwBCTagManagerLastTime: number}}
+	 */
+	const defaultStorageObj = { jwBCTagManager: {}, jwBCTagManagerLastTime: 0 };
 
 	// Constructor
 	app.init = function() {
@@ -8,42 +15,50 @@ window.jwBasecampTagger = {};
 		app.restoreOptions();
 	};
 
+
 	app.restoreOptions = function() {
-		chrome.storage.sync.get( { jwBCTagManager: {} }, function( dataSet ) {
-			if ( ! dataSet.jwBCTagManager ) {
-				return false;
+		chrome.storage.sync.get( defaultStorageObj, app.buildOptionsTable );
+	};
+
+	/**
+	 * Builds the options table
+	 * @param {object} dataSet
+	 * @returns {boolean}
+	 */
+	app.buildOptionsTable = function( dataSet ) {
+		if ( ! dataSet.jwBCTagManager ) {
+			return false;
+		}
+
+		for ( var key in dataSet.jwBCTagManager ) {
+			if ( ! dataSet.jwBCTagManager.hasOwnProperty( key ) ) {
+				continue;
 			}
 
-			for ( var key in dataSet.jwBCTagManager ) {
-				if ( ! dataSet.jwBCTagManager.hasOwnProperty( key ) ) {
+			var item = dataSet.jwBCTagManager[ key ];
+			var $settingsField = $( 'tr.settingsFields:first' ).clone();
+
+			for ( var prop in item ) {
+				if ( ! item.hasOwnProperty( prop ) ){
 					continue;
 				}
 
-				var item = dataSet.jwBCTagManager[ key ];
-				var $settingsField = $( 'tr.settingsFields:first' ).clone();
-
-				for ( var prop in item ) {
-					if ( ! item.hasOwnProperty( prop ) ){
-						continue;
-					}
-
-					var fieldItem = $settingsField.find( '.' + prop );
-					if ( ! fieldItem.length ) {
-						continue;
-					}
-
-					fieldItem.val( item[ prop ] );
+				var fieldItem = $settingsField.find( '.' + prop );
+				if ( ! fieldItem.length ) {
+					continue;
 				}
-				$( 'tbody' ).append( $settingsField );
-			}
 
-			var fieldSet = $( 'tr.settingsFields:first' );
-			if ( $( 'tr.settingsFields' ).length > 1 ) {
-				fieldSet.remove();
+				fieldItem.val( item[ prop ] );
 			}
+			$( 'tbody' ).append( $settingsField );
+		}
 
-			app.cache();
-		} );
+		var fieldSet = $( 'tr.settingsFields:first' );
+		if ( $( 'tr.settingsFields' ).length > 1 ) {
+			fieldSet.remove();
+		}
+
+		app.cache();
 	};
 
 	// Cache all the things
@@ -91,8 +106,18 @@ window.jwBasecampTagger = {};
 	app.submitForm = function( e ) {
 		e.preventDefault();
 		var formObj = $( 'body' ).find( 'form' ).serializeControls();
+		var date = new Date();
 
-		chrome.storage.sync.set( formObj, function() {
+		// The data to be saved, with an additional timestamp.
+		var dataSet = {
+			jwBCTagManagerLastTime: date.getTime()
+		};
+
+		if ( formObj.hasOwnProperty( 'jwBCTagManager' ) ) {
+			dataSet['jwBCTagManager'] = formObj.jwBCTagManager;
+		}
+
+		chrome.storage.sync.set( dataSet, function() {
 			app.$c.status.fadeIn( 200 ).text( 'Options Saved' );
 
 			setTimeout( function() {
@@ -100,7 +125,9 @@ window.jwBasecampTagger = {};
 			}, 4000 );
 		} );
 
-		app.log( formObj );
+		chrome.storage.local.set( dataSet );
+
+		app.log( formObj )
 	};
 
 	app.log = function( thing ) {

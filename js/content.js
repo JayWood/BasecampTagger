@@ -5,18 +5,106 @@ window.jwBCTagManager = {};
 	app.config = {};
 	app.page = 'single'; // default to single
 
+	/**
+	 * Config from chrome.storage.local
+	 * @type {{}}
+	 */
+	app.localConfig = {};
+
+	/**
+	 * Config from chrome.storage.sync
+	 * @type {{}}
+	 */
+	app.syncConfig = {};
+
+	/**
+	 * The default storage object structure.
+	 * @type {{jwBCTagManager: {}, jwBCTagManagerLastTime: number}}
+	 */
+	const defaultStorageObj = { jwBCTagManager: {}, jwBCTagManagerLastTime: 0 };
+
 	// Cache all the things
 	app.cache = function() {
-		chrome.storage.sync.get( { jwBCTagManager: [] }, function( data ) {
+		// Cache stuffs
+	};
+
+
+	/**
+	 * Stores data in the global value
+	 * @param data
+	 */
+	app.getLocalConfig = function( data ) {
+		app.localConfig = data;
+
+		chrome.storage.sync.get( defaultStorageObj, app.getSyncConfig );
+
+		window.console.log( 'Loaded local config' );
+	};
+
+	/**
+	 * Stores data in the global value
+	 * @param data
+	 */
+	app.getSyncConfig = function( data ) {
+		app.syncConfig = data;
+
+		window.console.log( 'Loaded sync config' );
+
+		app.determineConfig();
+	};
+
+	/**
+	 * Determines which config to use.
+	 *
+	 * @returns {boolean}
+	 */
+	app.determineConfig = function() {
+
+		window.console.log( 'Loaded ALL configs' );
+		window.console.log( app );
+
+		if ( app.syncConfig.jwBCTagManager && 0 === Object.keys( app.syncConfig.jwBCTagManager ).length ) {
+			return app.setConfig( app.localConfig );
+		}
+
+		var curTime = new Date().getTime();
+		var remoteTime = 0 === app.syncConfig.jwBCTagManagerLastTime ? curTime : app.syncConfig.jwBCTagManagerLastTime;
+		var localTime = 0 === app.localConfig.jwBCTagManagerLastTime ? curTime : app.localConfig.jwBCTagManagerLastTime;
+
+		if ( remoteTime > localTime ) {
+			// Set the config, update the local config value.
+			app.localConfig = app.syncConfig;
+
+			chrome.storage.local.set( syncConfig );
+		}
+
+		app.setConfig( app.localConfig );
+
+		$( document ).ready( app.bindEvents );
+	};
+
+	/**
+	 * Sets the app configuration for users.
+	 *
+	 * @param {object} data
+	 * @return {boolean} Rather or not config was successfully loaded.
+	 */
+	app.setConfig = function( data ) {
+		if ( data.jwBCTagManager && 0 < Object.keys( data.jwBCTagManager ).length ) {
 			app.config = data.jwBCTagManager;
-		});
+			return true;
+		} else {
+			app.config = {};
+		}
+
+		return false;
 	};
 
 	// Constructor
 	app.init = function() {
 		app.cache();
 
-		$( document ).ready( app.bindEvents );
+		chrome.storage.local.get( defaultStorageObj, app.getLocalConfig );
 	};
 
 	app.bindEvents = function () {
