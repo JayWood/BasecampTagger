@@ -75,7 +75,7 @@ window.jwBCTagManager = {};
 			// Set the config, update the local config value.
 			app.localConfig = app.syncConfig;
 
-			chrome.storage.local.set( syncConfig );
+			chrome.storage.local.set( app.syncConfig );
 		}
 
 		app.setConfig( app.localConfig );

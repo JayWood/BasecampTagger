@@ -86,6 +86,10 @@ window.jwBasecampTagger = {};
 		$( 'body' ).on( 'click', '.remove', app.remove );
 	};
 
+	/**
+	 * Runs the data import.
+	 * @param evt
+	 */
 	app.runImport = function( evt ) {
 		evt.preventDefault();
 
