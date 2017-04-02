@@ -149,6 +149,8 @@ window.jwBasecampTagger = {};
 			dataSet['jwBCTagManager'] = formObj.jwBCTagManager;
 		}
 
+		$( 'textarea.settings' ).val( JSON.stringify( dataSet.jwBCTagManager ) );
+
 		chrome.storage.sync.set( dataSet, function() {
 			app.$c.status.fadeIn( 200 ).text( 'Options Saved' );
 
@@ -158,8 +160,6 @@ window.jwBasecampTagger = {};
 		} );
 
 		chrome.storage.local.set( dataSet );
-
-		app.log( formObj )
 	};
 
 	app.log = function( thing ) {
