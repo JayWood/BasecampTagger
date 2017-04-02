@@ -99,4 +99,11 @@ body.options {
 			width: 50%;
 		}
 	}
+
+	form.sharing {
+		textarea {
+			width: 100%;
+			min-height: 200px;
+		}
+	}
 }

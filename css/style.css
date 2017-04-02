@@ -99,3 +99,8 @@ body.options table.tagSettings .textColor {
   height: 31px;
   width: 50%;
 }
+
+body.options form.sharing textarea {
+  width: 100%;
+  min-height: 200px;
+}

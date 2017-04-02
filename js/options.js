@@ -30,6 +30,9 @@ window.jwBasecampTagger = {};
 			return false;
 		}
 
+		var jsonData = JSON.stringify( dataSet.jwBCTagManager );
+		$( 'textarea.settings' ).val( jsonData );
+
 		for ( var key in dataSet.jwBCTagManager ) {
 			if ( ! dataSet.jwBCTagManager.hasOwnProperty( key ) ) {
 				continue;
@@ -67,7 +70,8 @@ window.jwBasecampTagger = {};
 			btns: {
 				submit: $( '#submit' ),
 				newTag: $( '#addNew' ),
-				remove: $( '.remove' )
+				remove: $( '.remove' ),
+				import: $( '#import' )
 			},
 			status: $( '.status' )
 			// fooSelector: $( '.foo' ),
@@ -78,7 +82,31 @@ window.jwBasecampTagger = {};
 	app.bindEvents = function(){
 		app.$c.btns.submit.on( 'click', app.submitForm );
 		app.$c.btns.newTag.on( 'click', app.newTag );
+		app.$c.btns.import.on( 'click', app.runImport );
 		$( 'body' ).on( 'click', '.remove', app.remove );
+	};
+
+	app.runImport = function( evt ) {
+		evt.preventDefault();
+
+		try {
+			var $importField = $( 'textarea.settings' ).val();
+
+			$( 'textarea.settings, #import' ).prop( 'disabled', true );
+
+			var dataSet = {
+				jwBCTagManager: $importField,
+				jwBCTagManagerLastTime: new Date().getTime()
+			};
+
+			chrome.storage.sync.set( JSON.parse( $importField ), function() {
+				location.reload();
+			});
+		} catch( e ) {
+			if ( window.console ) {
+				window.console.log( e );
+			}
+		}
 	};
 
 	app.remove = function( e ) {
