@@ -67,9 +67,9 @@ window.jwBCTagManager = {};
 			return app.setConfig( app.localConfig );
 		}
 
-		var curTime = new Date().getTime();
-		var remoteTime = 0 === app.syncConfig.jwBCTagManagerLastTime ? curTime : app.syncConfig.jwBCTagManagerLastTime;
-		var localTime = 0 === app.localConfig.jwBCTagManagerLastTime ? curTime : app.localConfig.jwBCTagManagerLastTime;
+		var curTime    = new Date().getTime();
+		var remoteTime = ( 0 === app.syncConfig.jwBCTagManagerLastTime ) ? curTime : app.syncConfig.jwBCTagManagerLastTime;
+		var localTime  = ( 0 === app.localConfig.jwBCTagManagerLastTime ) ? curTime : app.localConfig.jwBCTagManagerLastTime;
 
 		if ( remoteTime > localTime ) {
 			// Set the config, update the local config value.
@@ -102,13 +102,20 @@ window.jwBCTagManager = {};
 
 	// Constructor
 	app.init = function() {
-		app.cache();
-
 		chrome.storage.local.get( defaultStorageObj, app.getLocalConfig );
 	};
 
+	/**
+	 * Event binder, duh!
+	 */
 	app.bindEvents = function () {
+		app.cache();
+
+		/**
+		 * Sets the page we're on, needed for determining selectors
+		 */
 		app.determinePage();
+
 		$( 'li.todo' ).each( app.updateElement );
 	};
 
