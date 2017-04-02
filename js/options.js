@@ -95,11 +95,11 @@ window.jwBasecampTagger = {};
 			$( 'textarea.settings, #import' ).prop( 'disabled', true );
 
 			var dataSet = {
-				jwBCTagManager: $importField,
+				jwBCTagManager: JSON.parse( $importField ),
 				jwBCTagManagerLastTime: new Date().getTime()
 			};
 
-			chrome.storage.sync.set( JSON.parse( $importField ), function() {
+			chrome.storage.sync.set( dataSet, function() {
 				location.reload();
 			});
 		} catch( e ) {
