@@ -1,6 +1,7 @@
 # WDS Basecamp Tagger
 
-**Contributors:** [JayWood](http://github.com/JayWood)
+**Contributors:** [JayWood](http://github.com/JayWood)   
+**License:** GPLv3
 
 ## About
 This tagging extension is basically a glorified search/replace for Strings in Basecamp tasks. You can set your tags, labels and colors by right-clicking on the icon and selecting `Options`.
