@@ -16,12 +16,12 @@ This tagging extension is basically a glorified search/replace for Strings in Ba
 
 ## Screenshots
 
-_(Before enabling the Tagger)_
+_(Before enabling the Tagger)_   
 ![after tagging](https://raw.githubusercontent.com/JayWood/BasecampTagger/master/.github/before-tagger.png)
 
-_(After enabling the Tagger)_
+_(After enabling the Tagger)_   
 ![after tagging](https://raw.githubusercontent.com/JayWood/BasecampTagger/master/.github/after-tagger.png)
 
-_(Options page)_
+_(Options page)_   
 ![Options Page](https://raw.githubusercontent.com/JayWood/BasecampTagger/master/.github/options.png)
 
