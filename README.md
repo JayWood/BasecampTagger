@@ -1,6 +1,6 @@
 # WDS Basecamp Tagger
 
-**Contributors:** [JayWood](http://github.com/JayWood)   
+**Contributors:** [JayWood](http://github.com/JayWood), [ImBigWill](https://github.com/ImBigWill)   
 **License:** GPLv3
 
 ## About
